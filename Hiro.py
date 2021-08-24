@@ -42,6 +42,14 @@ async def on_message(self):
                 
 
 #audio section 
+
+
+
+@client.command(pass_context= True)
+async def reminder(ctx):
+        channel = ctx.author.channel
+
+        
 @client.command()
 async def join(ctx):
         channel = ctx.author.voice.channel
@@ -54,6 +62,8 @@ async def leave(ctx):
                 await ctx.send('I have disconnected by your order')
         else:
                 await ctx.send('I am not connected already!')
+
+
 
 
 
