@@ -44,7 +44,7 @@ async def on_message(self):
 #audio section 
 
 
-
+#audio section
 @client.command(pass_context= True)
 async def reminder(ctx):
         channel = ctx.author.channel
