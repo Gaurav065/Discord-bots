@@ -1,71 +1,55 @@
+from sys import platlibdir
+import typing
+import discord
+from discord import activity
+import spotipy
+import random
+from discord import channel
+from discord import client
+from discord import player
+from discord.enums import Status, TeamMembershipState
+from discord.ext import commands, tasks
+from random import choice
+from discord.ext.commands import Bot
+from discord.webhook import AsyncWebhookAdapter
+from discord.voice_client import VoiceClient
+from discord import FFmpegPCMAudio
+import asyncio
 import os
-import discord 
-from discord.ext import commands
-import random
-from discord.flags import Intents
-from discord.utils import get 
-import requests 
+from discord.utils import _parse_ratelimit_header, get
+import youtube_dl
+import ffmpeg
+from youtube_dl.utils import escape_url, lookup_unit_table
+import requests
 import json
-import random
 
 
-client = commands.Bot(command_prefix = '.')
+client = Bot(command_prefix = '_')
 
 #on ready 
 @client.event
 async def on_ready():
         print('Ready to log in')
 
-@client.event
-async def on_member_join(member):
-        print(f'{member} has joined the guild')
-
-@client.event
-async def on_member_remove(member):
-        print(f'{member} has left the guild')
+@client.command(__name__='Ping')
+async def ping(ctx):
+        await ctx.send(f"pong")
 
 #Function which gets quotes through requests and converts it into a json for accessibility
 def quotes():
-        response = requests.get("https://zenquotes.io/api/random")
+        response = requests.get("https://animechan.vercel.app/api/random")
         json_data = json.loads(response.text)
-        quote = json_data[0]['q'] + ' -' + json_data[0]['a']
-        return(quote)
-
-@client.event
-async def on_message(self):
-        if self.author == client.user:
-                return('a user has sent a message')
-
-        if self.content.startswith(".encourage"):
-                quote = quotes()     
-                await self.channel.send(quote)
-                
-
-#audio section 
-
-
-#audio section
-@client.command(pass_context= True)
-async def reminder(ctx):
-        channel = ctx.author.channel
-
+        #quote = json_data[0]['anime'] + '\n' + json_data[0]['character']+'\n'+json_data[0]['quote']
+        qu = 'anime:'+json_data['anime']+'\n'+json_data['quote']+'~'+json_data['character']
+        return qu
         
-@client.command()
-async def join(ctx):
-        channel = ctx.author.voice.channel
-        await channel.connect()
+        
+        
 
-@client.command(pass_context = 'leave')
-async def leave(ctx):
-        if (ctx.voice_client):
-                await ctx.guild.voice_client.disconnect()
-                await ctx.send('I have disconnected by your order')
-        else:
-                await ctx.send('I am not connected already!')
+@client.command(__name__='boost')
+async def boost(ctx):
+        quote = quotes()
+        await ctx.send(quote)
 
 
-
-
-
-
-client.run('ODc4MTAwNzQzNTE5ODY2ODgw.YR8RCw.EG6iBKqs2cejp1tFwFGHq4YbGkU')
+client.run('ODc4MTAwNzQzNTE5ODY2ODgw.YR8RCw.NNuZFOQqKGqYLOK4zO_RVs9nyGY')
