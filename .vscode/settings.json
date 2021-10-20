@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./Lpu Music bot/Bot"
+    ]
+}
