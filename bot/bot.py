@@ -53,11 +53,11 @@ class Mbot(commands.Bot):
     async def on_disconnect(self):
         print("Lpu_bot remaining hp has been depleted")
     
-    # async def on_error(self, err, *args, **kwargs):
-    #     raise
+    async def on_error(self, err, *args, **kwargs):
+        raise
 
-    # async def on_command_error(self, ctx, exc):
-    #     raise getattr(exc, "Real_one", exc)
+    async def on_command_error(self, ctx, exc):
+        raise getattr(exc, "Real_one", exc)
 
 
 
